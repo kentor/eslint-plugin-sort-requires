@@ -57,8 +57,9 @@ var c = require('b');
 
 var b = require('b');
 
-const d = require('d');
-let e = require('e');
+// const comes before let
+const e = require('e');
+let d = require('d');
 ```
 
 #### Bad
@@ -70,6 +71,7 @@ var d =
   require('d');
 var c = require('c');
 
+// const comes before let
 let e = require('e');
 const f = require('f');
 ```
