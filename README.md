@@ -1,4 +1,4 @@
-# eslint-plugin-sort-requires [![Build Status](https://travis-ci.org/kentor/eslint-plugin-sort-requires.svg?branch=master)](https://travis-ci.org/kentor/eslint-plugin-sort-requires)
+# eslint-plugin-sort-requires [![Build Status](https://travis-ci.org/kentor/eslint-plugin-sort-requires.svg?branch=master)](https://travis-ci.org/kentor/eslint-plugin-sort-requires) [![npm](https://img.shields.io/npm/v/eslint-plugin-sort-requires.svg)](https://www.npmjs.com/package/eslint-plugin-sort-requires)
 
 ESLint rule to enforce sorting of variable declarations in a group of `require()` calls
 
