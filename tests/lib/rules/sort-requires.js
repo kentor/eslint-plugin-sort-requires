@@ -1,9 +1,6 @@
 const rule = require('../../../lib').rules['sort-requires'];
 const { RuleTester } = require('eslint');
 
-RuleTester.describe = describe;
-RuleTester.it = it;
-
 const code = (lines) => lines.join('\n');
 const expectedError = [{
   message: rule.errorMessage,
