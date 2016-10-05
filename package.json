@@ -38,9 +38,11 @@
     "eslint": "3.7.1",
     "eslint-config-kentor": "3.6.1",
     "eslint-watch": "2.1.14",
-    "jest": "16.0.1"
+    "jest": "16.0.1",
+    "jscodeshift": "0.3.29"
   },
   "jest": {
-    "testRegex": "/tests/.*?\\.js$"
+    "testPathIgnorePatterns": ["dist", "/node_modules/"],
+    "testRegex": "(/tests/.*?)|(/__tests__/.*?-test)\\.js$"
   }
 }

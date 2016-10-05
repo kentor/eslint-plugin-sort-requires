@@ -1,2 +1,4 @@
 *.log
+dist/__testfixtures__
+dist/__tests__
 node_modules

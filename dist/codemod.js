@@ -12,7 +12,7 @@ module.exports = function transformer(file, api) {
   // Group paths into array of arrays
   function getPathGroups(rootCollection) {
     var paths = [];
-    var pathGroups = [];
+    var partitionedPaths = [];
 
     rootCollection.find(j.VariableDeclaration).filter(function (path) {
       return j(path).find(j.CallExpression, {
@@ -23,18 +23,19 @@ module.exports = function transformer(file, api) {
     });
 
     if (paths.length) {
-      paths.reduce(function (memo, path) {
-        var lastGroup = last(memo);
-        if (!lastGroup || path.node.loc.start.line - last(lastGroup).node.loc.end.line != 1) {
-          memo.push([path]);
+      partitionedPaths.push([paths[0]]);
+
+      paths.reduce(function (lastPath, path) {
+        if (path.node.loc.start.line - lastPath.node.loc.end.line === 1) {
+          last(partitionedPaths).push(path);
         } else {
-          lastGroup.push(path);
+          partitionedPaths.push([path]);
         }
-        return memo;
-      }, pathGroups);
+        return path;
+      });
     }
 
-    return pathGroups;
+    return partitionedPaths;
   }
 
   var origPathGroups = getPathGroups(root);
