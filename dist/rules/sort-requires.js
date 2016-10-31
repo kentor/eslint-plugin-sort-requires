@@ -36,8 +36,7 @@ module.exports = {
 
           if (previousDeclaration.toLowerCase() > declaration.toLowerCase()) {
             context.report({
-              loc: { start: node.loc.start, end: node.loc.end },
-              // message: errorMessage,
+              loc: node.loc,
               message: repr(declaration) + ' should come before ' + ('' + repr(previousDeclaration)),
               fix: function fix(fixer) {
                 var replacement = [declaration, previousDeclaration].join('\n');
