@@ -1,14 +1,14 @@
 'use strict';
 
-var errorMessage = '\n  Variables within a declaration group should be sorted alphabetically.\n'.trim();
-
 module.exports = {
-  meta: {},
+  meta: {
+    fixable: 'code'
+  },
+
   create: function create(context) {
     var hasRequire = /require\(/;
     var sourceCode = context.getSourceCode();
     var previousDeclaration = void 0;
-    var previousFilename = void 0;
     var previousNode = void 0;
 
     function shouldStartNewGroup(node, previousNode) {
@@ -17,9 +17,13 @@ module.exports = {
       return lineOfNode - lineOfPrev !== 1;
     }
 
+    function repr(declaration) {
+      return '`' + declaration.split('\n').join(' ').replace(/ =.+$/, '') + '`';
+    }
+
     return {
       VariableDeclaration: function VariableDeclaration(node) {
-        var declaration = sourceCode.getText(node).toLowerCase();
+        var declaration = sourceCode.getText(node);
 
         if (!hasRequire.test(declaration)) return;
 
@@ -30,10 +34,15 @@ module.exports = {
             return;
           }
 
-          if (previousDeclaration > declaration) {
+          if (previousDeclaration.toLowerCase() > declaration.toLowerCase()) {
             context.report({
-              message: errorMessage,
-              node: node
+              loc: { start: node.loc.start, end: node.loc.end },
+              // message: errorMessage,
+              message: repr(declaration) + ' should come before ' + ('' + repr(previousDeclaration)),
+              fix: function fix(fixer) {
+                var replacement = [declaration, previousDeclaration].join('\n');
+                return fixer.replaceTextRange([previousNode.start, node.end], replacement);
+              }
             });
           }
         }
@@ -42,7 +51,5 @@ module.exports = {
         previousNode = node;
       }
     };
-  },
-
-  errorMessage: errorMessage
+  }
 };

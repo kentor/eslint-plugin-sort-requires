@@ -28,9 +28,9 @@ file. You can omit the `eslint-plugin-` prefix:
 
 ```json
 {
-    "plugins": [
-        "sort-requires"
-    ]
+  "plugins": [
+    "sort-requires"
+  ]
 }
 ```
 
@@ -39,9 +39,9 @@ Then configure the rules you want to use under the rules section.
 
 ```json
 {
-    "rules": {
-        "sort-requires/sort-requires": 2
-    }
+  "rules": {
+    "sort-requires/sort-requires": 2
+  }
 }
 ```
 
@@ -81,14 +81,14 @@ const f = require('f');
 See [tests/lib/rules/sort-requires.js](tests/lib/rules/sort-requires.js) for
 more cases.
 
-## jscodeshift codemod
+## Changelog
 
-This project contains a [jscodeshift](https://github.com/facebook/jscodeshift)
-codemod for fixing `sort-requires` errors. With `jscodeshift` installed, run:
+### 2.0.0
+* add eslint auto fixing
+* remove jscodeshift fixer
 
-```
-jscodeshift -t node_modules/eslint-plugin-sort-requires/lib/codemod.js <path>
-```
+### 1.0.0
+* initial build
 
 ## License
 

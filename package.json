@@ -1,10 +1,10 @@
 {
   "name": "eslint-plugin-sort-requires",
-  "version": "1.0.1",
+  "version": "2.0.0",
   "description": "ESLint rule to enforce sorting of variable declarations in a group of require() calls",
   "main": "dist/index.js",
   "scripts": {
-    "build": "babel lib -d dist",
+    "build": "rimraf dist && babel lib -d dist",
     "lint": "eslint .",
     "lint:watch": "esw -w",
     "prepublish": "npm test && npm run build",
@@ -39,10 +39,13 @@
     "eslint-config-kentor": "3.6.1",
     "eslint-watch": "2.1.14",
     "jest": "16.0.1",
-    "jscodeshift": "0.3.29"
+    "rimraf": "2.5.4"
   },
   "jest": {
-    "testPathIgnorePatterns": ["dist", "/node_modules/"],
+    "testPathIgnorePatterns": [
+      "dist",
+      "/node_modules/"
+    ],
     "testRegex": "(/tests/.*?)|(/__tests__/.*?-test)\\.js$"
   }
 }
