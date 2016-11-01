@@ -1,6 +1,6 @@
 {
   "name": "eslint-plugin-sort-requires",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "description": "ESLint rule to enforce sorting of variable declarations in a group of require() calls",
   "main": "dist/index.js",
   "scripts": {

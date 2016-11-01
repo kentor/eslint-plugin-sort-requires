@@ -83,6 +83,10 @@ more cases.
 
 ## Changelog
 
+### 2.1.0
+* change report message and location to entire require group
+* improve eslint auto fixing by requiring only a single pass
+
 ### 2.0.0
 * add eslint auto fixing
 * remove jscodeshift fixer
