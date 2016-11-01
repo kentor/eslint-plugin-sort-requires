@@ -83,7 +83,7 @@ ruleTester.run('sort-requires', rule, {
         'var a = require()',
         'var b = require().default',
       ]),
-      errors: [{ message: '`var a` should come before `var b`' }],
+      errors: [{ message: 'This group of requires is not sorted' }],
     },
     {
       code: code([
@@ -96,7 +96,7 @@ ruleTester.run('sort-requires', rule, {
         'var b =',
         '  require()',
       ]),
-      errors: [{ message: '`var a` should come before `var b`' }],
+      errors: [{ message: 'This group of requires is not sorted' }],
     },
     {
       code: code([
@@ -105,14 +105,20 @@ ruleTester.run('sort-requires', rule, {
         '  require()',
         'var a = require()',
       ]),
-      errors: [{ message: '`var a` should come before `var b`' }],
+      output: code([
+        'var a = require()',
+        'var b =',
+        '',
+        '  require()',
+      ]),
+      errors: [{ message: 'This group of requires is not sorted' }],
     },
     {
       code: code([
         'var { b } = require()',
         'var { a } = require()',
       ]),
-      errors: [{ message: '`var { a }` should come before `var { b }`' }],
+      errors: [{ message: 'This group of requires is not sorted' }],
       parserOptions: { ecmaVersion: 6 },
     },
     {
@@ -124,7 +130,7 @@ ruleTester.run('sort-requires', rule, {
         'var { b } = require()',
         'var { c, a } = require()',
       ]),
-      errors: [{ message: '`var { b }` should come before `var { c, a }`' }],
+      errors: [{ message: 'This group of requires is not sorted' }],
       parserOptions: { ecmaVersion: 6 },
     },
     {
@@ -132,7 +138,7 @@ ruleTester.run('sort-requires', rule, {
         'var { b } = require()',
         'var a = require()',
       ]),
-      errors: [{ message: '`var a` should come before `var { b }`' }],
+      errors: [{ message: 'This group of requires is not sorted' }],
       parserOptions: { ecmaVersion: 6 },
     },
     {
@@ -144,7 +150,7 @@ ruleTester.run('sort-requires', rule, {
         'const B = require()',
         'let a = require()',
       ]),
-      errors: [{ message: '`const B` should come before `let a`' }],
+      errors: [{ message: 'This group of requires is not sorted' }],
       parserOptions: { ecmaVersion: 6 },
     },
     {
@@ -158,7 +164,7 @@ ruleTester.run('sort-requires', rule, {
         'let b = require()',
         'let c = require()',
       ]),
-      errors: [{ message: '`let b` should come before `let c`' }],
+      errors: [{ message: 'This group of requires is not sorted' }],
       parserOptions: { ecmaVersion: 6 },
     },
     {
@@ -167,15 +173,31 @@ ruleTester.run('sort-requires', rule, {
         'var b = require().test',
         'var a = require()[0]',
       ]),
-      // Note: Should be fixed but the test fixer only fixes it once
       output: code([
-        'var c = require().test[0]',
         'var a = require()[0]',
         'var b = require().test',
+        'var c = require().test[0]',
+      ]),
+      errors: [{ message: 'This group of requires is not sorted' }],
+    },
+    {
+      code: code([
+        'var b = require()',
+        'var a = require()',
+        '',
+        'var d = require()',
+        'var c = require()',
+      ]),
+      output: code([
+        'var a = require()',
+        'var b = require()',
+        '',
+        'var c = require()',
+        'var d = require()',
       ]),
       errors: [
-        { message: '`var b` should come before `var c`' },
-        { message: '`var a` should come before `var b`' },
+        { message: 'This group of requires is not sorted' },
+        { message: 'This group of requires is not sorted' },
       ],
     },
   ],
