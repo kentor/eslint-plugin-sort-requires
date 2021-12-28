@@ -28,7 +28,7 @@ module.exports = {
           loc: { start: group[0].loc.start, end: last(group).loc.end },
           message: 'This group of requires is not sorted',
           fix: function fix(fixer) {
-            return fixer.replaceTextRange([group[0].start, last(group).end], texts.join('\n'));
+            return fixer.replaceTextRange([group[0].range[0], last(group).range[1]], texts.join('\n'));
           }
         });
       }
